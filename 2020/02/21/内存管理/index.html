@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="内存的基础知识内存可存数据。程序执行前需要先放在内存中才能被CPU处理——缓和CPU与硬盘之间的速度矛盾。 内存地址从0开始，每个地址对应一个存储单元。 如果计算机“按字节编址”，则每个存储单元大小为1字节，即1B，即8个二进制位。 如果字长为16位的计算机“按字编址”，则每个存储单元大小为1个字；16个二进制位。  三种策略解决内存装入：  绝对装入 可重定向装入（静态重定位） 动态运行时装入（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Suria_Blog">
+<meta property="og:description" content="内存的基础知识内存可存数据。程序执行前需要先放在内存中才能被CPU处理——缓和CPU与硬盘之间的速度矛盾。 内存地址从0开始，每个地址对应一个存储单元。 如果计算机“按字节编址”，则每个存储单元大小为1字节，即1B，即8个二进制位。 如果字长为16位的计算机“按字编址”，则每个存储单元大小为1个字；16个二进制位。  三种策略解决内存装入：  绝对装入 可重定向装入（静态重定位） 动态运行时装入（">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%8A%A8%E6%80%81%E9%87%8D%E5%AE%9A%E4%BD%8D.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E4%BB%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E5%88%B0%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%A3%85%E5%85%A5%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%A6%86%E7%9B%96%E6%8A%80%E6%9C%AF.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E4%BA%A4%E6%8D%A2%E9%97%AE%E9%A2%98.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%A6%86%E7%9B%96%E4%B8%8E%E4%BA%A4%E6%8D%A2.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%8D%95%E4%B8%80.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%9B%BA%E5%AE%9A.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%9B%BA%E5%AE%9A1.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%8A%A8%E6%80%81.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E4%B8%A4%E7%A7%8D%E5%8A%A8%E6%80%81%E6%96%B9%E6%B3%95.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%97%AE%E9%A2%983.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%97%AE%E9%A2%983_1.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E7%AE%A1%E7%90%86.png">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A6%96%E6%AC%A1%E9%80%82%E5%BA%94.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%82%BB%E8%BF%91%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5%E8%A1%A8.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5%E8%A1%A8%E5%8D%A0%E5%AD%97%E8%8A%82.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5%E8%A1%A8%E9%A1%B9.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%AE%9E%E7%8E%B0%E5%9C%B0%E5%9D%80%E8%A3%85%E6%8D%A2.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5%E5%8F%B7%E8%AE%A1%E7%AE%97.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E9%A1%B5%E5%8F%B7%E9%A1%B5%E5%86%85%E5%81%8F%E7%A7%BB%E9%87%8F%E8%AE%A1%E7%AE%97.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%AE%A1%E7%AE%97.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E6%8A%80%E5%B7%A7.PNG">
+<meta property="og:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E5%9F%BA%E6%9C%AC%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png">
+<meta property="article:published_time" content="2020-02-21T07:50:17.000Z">
+<meta property="article:modified_time" content="2020-02-24T11:59:40.000Z">
+<meta property="article:author" content="Suria">
+<meta property="article:tag" content="专业课">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>内存管理 | Suria_Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+  <script type="text/javascript" src="/js/love.js"></script>
+  
+  <script type="text/javascript" src="/js/j.js"></script>
+  <script type="text/javascript" src="/js/j.min.js"></script>
+  <script type="text/javascript" src="/js/snow.js"></script>
+
+  <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script>
+
+<link rel="alternate" href="/atom.xml" title="Suria_Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    
+  <div id="weather-view-he"></div>
+  <script type="text/javascript">
+    WIDGET = {FID: 'Bij5GrHL3p'}
+  </script>
+  <script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+  
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Suria_Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">日拱一卒</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/xyzsuria/xyzsuria.github.io" class="github-corner" title="xyzsuria GitHub" aria-label="xyzsuria GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/21/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Suria">
+      <meta itemprop="description" content="我爱Python">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suria_Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内存管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-21 15:50:17" itemprop="dateCreated datePublished" datetime="2020-02-21T15:50:17+08:00">2020-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-24 19:59:40" itemprop="dateModified" datetime="2020-02-24T19:59:40+08:00">2020-02-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="内存的基础知识"><a href="#内存的基础知识" class="headerlink" title="内存的基础知识"></a>内存的基础知识</h3><p>内存可存数据。程序执行前<strong>需要先放在内存中才能被CPU处理</strong>——缓和CPU与硬盘之间的速度矛盾。</p>
+<p>内存地址从0开始，<strong>每个地址对应一个存储单元</strong>。</p>
+<p>如果计算机“<strong>按字节编址</strong>”，则<strong>每个存储单元大小</strong>为<strong>1字节</strong>，即1B，即8个二进制位。</p>
+<p>如果<strong>字长为16位</strong>的计算机“<strong>按字编址</strong>”，则<strong>每个存储单元大小</strong>为<strong>1个字</strong>；16个二进制位。</p>
+<p><img src="补充知识.PNG" alt="补充知识"></p>
+<p>三种策略解决内存装入：</p>
+<ol>
+<li>绝对装入</li>
+<li>可重定向装入（静态重定位）</li>
+<li>动态运行时装入（动态重定位）</li>
+</ol>
+<h4 id="绝对装入"><a href="#绝对装入" class="headerlink" title="绝对装入"></a>绝对装入</h4><p>在编译时，如果知道程序将放到内存中的哪个位置，编译程序将产生地址的目标代码。装入程序按照装入模块中的地址，将程序和数据装入内存。</p>
+<p>绝对装入<strong>只适用于单道程序环境</strong>。</p>
+<h4 id="可重定位装入"><a href="#可重定位装入" class="headerlink" title="可重定位装入"></a>可重定位装入</h4><p><strong>静态重定位</strong>：又称<strong>可重定位装入</strong>。编译、链接后的装入模块的地址都是从0开始的，指令中使用的地址、数据存放的地址都是相对于起始地址而言的逻辑地址。可根据内存的当前情况，将装入模块装入到内存中的适当位置。装入时对地址进程“<strong>重定位</strong>”，将逻辑地址变换为物理地址（地址变换是在装入时一次完成的）。</p>
+<p>静态重定位的特点是在一个作业装入内存时，<strong>必须分配其要求的全部内存空间</strong>，如果没有足够的内存，就不能装入该作业。</p>
+<p>作业一旦进入内存后，<strong>在运行期间就不能再移动</strong>，也不能再申请内存空间。</p>
+<p>用于早期的多道批处理操作系统。</p>
+<h4 id="动态运行时装入"><a href="#动态运行时装入" class="headerlink" title="动态运行时装入"></a>动态运行时装入</h4><p><strong>动态重定位</strong>：又称为<strong>动态运行时装入</strong>。编译、链接后的装入模块的地址都是从0开始的。装入程序把装入模块装入内存中，并不会立即把逻辑地址装换为物理地址，而是<strong>把地址转换推迟到程序真正要执行时才进行</strong>。因此装入内存后所有的地址依然是逻辑地址。这种方式需要一个<strong>重定位寄存器</strong>的支持。</p>
+<p>采用动态重定位时<strong>允许程序在内存中发生移动</strong>。</p>
+<p><img src="动态重定位.PNG" alt="动态重定位"></p>
+<p>需设置重定位寄存器。</p>
+<h4 id="从写程序到程序运行"><a href="#从写程序到程序运行" class="headerlink" title="从写程序到程序运行"></a>从写程序到程序运行</h4><p><img src="从写程序到程序运行.PNG" alt="从写程序到程序运行"></p>
+<h4 id="链接的三种方式"><a href="#链接的三种方式" class="headerlink" title="链接的三种方式"></a>链接的三种方式</h4><ol>
+<li><p><strong>静态链接</strong>：在程序运行之前，先将各目标模块及他们所需的库函数链接称一个完成的可执行文件（装入模块），只有不在拆开。<br><img src="静态链接.PNG" alt="静态链接"></p>
+</li>
+<li><p><strong>装入时动态链接</strong>：将个目标模块装入内存中，边装入边链接的链接方式。<br><img src="装入时动态链接.PNG" alt="装入时动态链接"></p>
+</li>
+<li><p><strong>运行时动态链接</strong>：在程序执行中需要该目标模块时，才对它进行链接。其优点是便于修改和更改，便于实现对目标模块的共享。<br><img src="运行时动态链接.PNG" alt="运行时动态链接"></p>
+</li>
+</ol>
+<p><img src="内存的基础知识.png" alt="内存的基础知识.png"></p>
+<h3 id="内存管理概念"><a href="#内存管理概念" class="headerlink" title="内存管理概念"></a>内存管理概念</h3><ol>
+<li>操作系统负责<strong>内存空间的分配与回收</strong></li>
+<li>操作系统需要提供某种技术从逻辑上<strong>对内存空间进行扩充</strong><br>虚拟技术，操作系统的虚拟性</li>
+<li>操作系统需要提供地址转换功能，负责程序的<strong>逻辑地址</strong>与<strong>物理地址</strong>的转换（三种装入方式）</li>
+<li>保证各进程在自己的内存空间内运行，不会越界。<br>内存保护可采取两种方法：<br>方法一：在CPU中<strong>设置一对上、下限寄存器</strong>，参访进程的上、下限地址。进程的指令要访问某个地址时，CPU检查是否越界。<br>方法二：采用<strong>重定位寄存器</strong>（又称<strong>基址寄存器</strong>）和<strong>界地址寄存器</strong>（又称<strong>限长寄存器</strong>）进行越界检查。重定位寄存器中存放的是进程的<strong>起始物理地址</strong>。界地址寄存器中存放的是进程的<strong>最大逻辑地址</strong>。</li>
+</ol>
+<h3 id="覆盖与交换"><a href="#覆盖与交换" class="headerlink" title="覆盖与交换"></a>覆盖与交换</h3><p>引入<strong>覆盖技术</strong>，用来<strong>解决“程序大小超过物理内存总和”的问题</strong></p>
+<p>覆盖技术的思想：将<strong>程序分为多个段</strong>（多个模块）。常用的段常驻内存，不常用的段在需要时调入内存。</p>
+<p>内存中分为<strong>一个“固定区”</strong>和<strong>若干个“覆盖区”</strong>。</p>
+<p>需要常驻内存的段放在“<strong>固定区</strong>”中，<strong>调入后就不再调出</strong>（除非运行结束）</p>
+<p>不常用的段放在“<strong>覆盖区</strong>”，<strong>需要用时调入内存，用不到时调出内存</strong>。</p>
+<h4 id="覆盖技术"><a href="#覆盖技术" class="headerlink" title="覆盖技术"></a>覆盖技术</h4><p><img src="覆盖技术.PNG" alt="覆盖技术"></p>
+<p><strong>必须由程序员声明覆盖结构</strong>，操作系统完成自动覆盖。<br><strong>缺点：对用户不透明</strong>，增加了用户编程负担。<br>覆盖技术只用于早期的操作平台，已经退出了历史舞台。</p>
+<h4 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h4><p> 交换（对换）技术的设计思想：内存空间紧张时，系统将内存中的某些进程暂时<strong>换出</strong>外存，把外存中某些已具备运行条件的进程<strong>换入</strong>内存（进程在内存与磁盘间的动态调度）</p>
+<p> 暂时换出外语才能等待的进程状态为<strong>挂起状态（挂起态，suspend）</strong></p>
+<p> 挂起态又可以进一步细分为<strong>就绪挂起、阻塞挂起</strong>两种状态。<br> <img src="交换问题.PNG" alt="交换问题"><br>(<strong>注意：PCB会常驻内存</strong>，不会被换出外存。)</p>
+<p><img src="覆盖与交换.png" alt="覆盖与交换.png"></p>
+<h3 id="连续分配管理方式"><a href="#连续分配管理方式" class="headerlink" title="连续分配管理方式"></a>连续分配管理方式</h3><p><strong>连续分配</strong>：指为用户进程分配的必须是一个<strong>连续的内存空间</strong></p>
+<h4 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h4><p><img src="单一.PNG" alt="单一"></p>
+<h4 id="固定分区分配"><a href="#固定分区分配" class="headerlink" title="固定分区分配"></a>固定分区分配</h4><p><img src="固定.PNG" alt="固定"></p>
+<p><img src="固定1.PNG" alt="固定1"></p>
+<h4 id="动态分区分配"><a href="#动态分区分配" class="headerlink" title="动态分区分配"></a>动态分区分配</h4><p><img src="动态.PNG" alt="动态"></p>
+<ol>
+<li><img src="两种动态方法.PNG" alt="两种动态方法"></li>
+<li>当有很多空闲分区都能满足需求时，应该选择那个分区进行分配？</li>
+</ol>
+<p>把一个新作业装入内存时，需按照一定的<strong>动态分区分配算法</strong>，把空闲分区表（或空闲分区链）中选出一个分区分配给该作业。</p>
+<ol>
+<li>如何进行分区的分配与回收操作？<br>（假设系统采用的数据结构是“空闲分区表”……如何分配）<br><img src="问题3.PNG" alt="问题3"></li>
+</ol>
+<p><img src="问题3_1.PNG" alt="问题3_1"></p>
+<p>回收情况1<br>回收区前有一个相邻的空闲分区</p>
+<p>情况2<br>回收区后有一个相邻的空闲分区</p>
+<p>情况3<br>回收区前后各有一个相邻的空闲分区</p>
+<p>合并之前或之后的空闲分区</p>
+<p>情况4<br>回收区的前、后都没有相邻的空闲分区<br>新增一个表项</p>
+<p>（注：各表项的顺序不一定按照地址递增顺序排列，具体的排列方式需要依据动态分区分配算法来确定。）</p>
+<p><strong>动态分区分配</strong>又称为<strong>可变分区分配</strong>。这种分配方式<strong>不会预先划分内存分区</strong>，而是在进程装入内存时，<strong>根据进程的大小动态地建立分区</strong>，并根据分区的大小证号适合进程的需要。因此系统分区的大小和数目是可变的。</p>
+<p>动态分区分配<strong>没有内部碎片</strong>，但是<strong>有外部碎片</strong>。<br><strong>内部碎片</strong>，分配给某个进程的内存区域中，如果有些部分没有用上。<br><strong>外部碎片</strong>如果内存中空闲空间的总和本来可以满足某进程的要求，但是由于进程需要的是一整块连续的内存空间，因此这些“碎片”不能满足进程的需求。</p>
+<p>可以通过<strong>紧凑（拼凑，Compaction）</strong>技术来解决外部碎片。<br><img src="连续分配管理.png" alt="连续分配管理.png"></p>
+<p>另外，需要对管理空闲分区的数据结构有印象——空闲分区表，空闲分区链。</p>
+<h3 id="动态分区分配算法"><a href="#动态分区分配算法" class="headerlink" title="动态分区分配算法"></a>动态分区分配算法</h3><h4 id="首次适应算法"><a href="#首次适应算法" class="headerlink" title="首次适应算法"></a>首次适应算法</h4><p><strong>算法思想</strong>：每次都是从低地址开始查找，找到第一个能满足大小的空闲分区。</p>
+<p><strong>如何实现：空闲分区以地址递增的次序排列</strong>。每次分配内存时顺序查找<strong>空闲分区链</strong>（或<strong>空闲分区表</strong>），找到代销能满足要求的第一个空闲分区。</p>
+<p><img src="首次适应.PNG" alt="首次适应"></p>
+<h4 id="最佳适应算法"><a href="#最佳适应算法" class="headerlink" title="最佳适应算法"></a>最佳适应算法</h4><p><strong>算法思想</strong>：由于动态分区分配是是一种连续分配方式，为各进程分配的空间必须是连续的一整片区域。因此为了保证“大进程”到来时能有连续的大片空间，可以尽可能多地留下大片空闲区，即，优先使用更小的空闲区。</p>
+<p><strong>如何实现</strong>：空闲分区<strong>按容器递增次序链接</strong>。每次分配内存时顺序查找<strong>空闲分区链</strong>（或<strong>空闲分区表</strong>），找到大小能满足要求的第一个空闲分区。</p>
+<p><strong>缺点：每次都选最小的分区进行分配，会留下越来越多的、很小的、难以利用的内存块。因此这种方法会产生很多外部碎片。</strong></p>
+<h4 id="最坏适应算法"><a href="#最坏适应算法" class="headerlink" title="最坏适应算法"></a>最坏适应算法</h4><p>又称<strong>最大适应算法（Largest Fit）</strong></p>
+<p>为了解决最佳适应算法的问题——即留下太多难以利用的小碎片，可以在每次分配时优先使用最大的连续空闲区，这样分配后圣墟的空闲区就不会太小，很方便使用。</p>
+<p>空闲分区<strong>按容量递减次序链接</strong>。每次分配内存时顺序查找<strong>空闲分区链</strong>（或<strong>空闲分区表</strong>），找到大小能满足要求的第一个空闲分区。</p>
+<p><strong>缺点：每次都选最大的分区进行分配，虽然可以让范配后留下的空闲区更大，更可用，但这汇总方式会导致较大的连续空闲区被迅速用完。如果之后有“大进程”到达，就没有内存分区可用了</strong>。</p>
+<h4 id="邻近适应算法"><a href="#邻近适应算法" class="headerlink" title="邻近适应算法"></a>邻近适应算法</h4><p><img src="邻近适应算法.PNG" alt="邻近适应算法"></p>
+<h4 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">算法</th>
+<th>算法思想</th>
+<th>分区排列顺序</th>
+<th>优点</th>
+<th style="text-align:right">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">首次适应</td>
+<td>从头到尾找适合的分区</td>
+<td>空闲分区以地址递增次序排列</td>
+<td>综合看性能最好。算法开销小，回收分区后一般不需要对空闲分区队列重新排序</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td style="text-align:left">最佳适应</td>
+<td>优先使用最小的分区，以保留更多大分区</td>
+<td>空闲分区以容量递增次序排列</td>
+<td>会有更多的大分区被保留下来，更能满足大进程需求</td>
+<td style="text-align:right">会产生很多太小的、难以利用的碎片；算法开销发，回收分区后可能需要对空闲分区队列重新排序</td>
+</tr>
+<tr>
+<td style="text-align:left">最坏适应</td>
+<td>优先使用更大的分区，乙方产生太小的不可用的碎片</td>
+<td>空闲分区以容量递减次序排列</td>
+<td>可以减少难以利用的小碎片</td>
+<td style="text-align:right">大分区容易被用完，不利于大进程；算法开销大</td>
+</tr>
+<tr>
+<td style="text-align:left">邻近适应</td>
+<td>由首次适应演变而来，每次从上次查找结束为止开始查找</td>
+<td>空闲分区以地址地址递增次序排列（可排列成循环链表）</td>
+<td>不用每次都从低地址的小分区开始检索。算法开销小</td>
+<td style="text-align:right">会使高地址的大分区也被用完</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="基本分页存储管理的基本概念"><a href="#基本分页存储管理的基本概念" class="headerlink" title="基本分页存储管理的基本概念"></a>基本分页存储管理的基本概念</h3><p><strong>连续分配</strong>：为用户进程分配的必须是一个<strong>连续的内存空间</strong>。<br><strong>非连续分配</strong>：为用户进程分配的可以是一些<strong>分散的内存空间</strong>。</p>
+<h4 id="什么是分页存储"><a href="#什么是分页存储" class="headerlink" title="什么是分页存储"></a>什么是分页存储</h4><p>将内存空间分为一个个<strong>大小相等的分区</strong>（比如：每个分区4KB），每个分区就是一个“<strong>页框</strong>”（<strong>页框=页帧=内存块=物理块=物理页面</strong>）。每个页框有一个编号，即“<strong>页框号</strong>”（<strong>页框号=页帧号=内存块号=物理块号=物理页号</strong>），页框号<strong>从0开始</strong>。</p>
+<p>将<strong>进程的逻辑地址空间</strong>也分为<strong>与页框大小相等</strong>的一个个部分，每个部分称为一个“<strong>页</strong>”或“<strong>页面</strong>”。每个页面也有一个编号，即“<strong>页号</strong>”，页号也是<strong>从0开始</strong>。</p>
+<p>操作系统<strong>以页框为单位为各个进程分配</strong>内存空间。进程的每个页面分别放入一个也狂中。也就是说，进程的<strong>页面</strong>与内存的<strong>页框</strong>有<strong>一一对应</strong>的关系。</p>
+<p><img src="页.PNG" alt="页"></p>
+<h4 id="重要的数据结构——页表"><a href="#重要的数据结构——页表" class="headerlink" title="重要的数据结构——页表"></a>重要的数据结构——页表</h4><p>为了能知道进程的每个页面在内存中存放的位置，操作系统腰围每个进程建立一张<strong>页表</strong>。</p>
+<p>注：页表通常存在PCB（进程控制块）中<br><img src="页表.PNG" alt="页表"></p>
+<p><img src="页表占字节.PNG" alt="页表占字节"></p>
+<p><strong>计算机中内存块的数量——&gt;页表项中块号至少占多少字节</strong></p>
+<p><img src="页表项.PNG" alt="页表项"></p>
+<p>页表中的<strong>页号</strong>可以是<strong>隐含</strong>的，即<strong>页号不占用存储空间</strong>。</p>
+<p><strong>注意：页表记录的只是内存块号，而不是内存块的起始地址！</strong><br><strong>J号内存块的起始地址=J *内存块大小</strong></p>
+<h4 id="如何实现地址装换"><a href="#如何实现地址装换" class="headerlink" title="如何实现地址装换"></a>如何实现地址装换</h4><p><img src="实现地址装换.PNG" alt="实现地址装换"></p>
+<p><img src="页号计算.PNG" alt="页号计算"></p>
+<p><img src="页号页内偏移量计算.PNG" alt="页号页内偏移量计算"></p>
+<p><img src="二进制计算.PNG" alt="二进制计算"></p>
+<p>在计算机内部，地址是用二进制表示的，如果<strong>页面大小</strong>刚好是<strong>2的整数幂</strong>，则计算机硬件可以很快速的把逻辑地址拆分成页号，页内偏移量。</p>
+<p>如何计算：<br><strong>页号</strong>=逻辑地址/页面长度（取除法的<strong>整数</strong>部分）<br><strong>页内偏移量</strong>=逻辑地址%页面长度（取除法的<strong>余数</strong>部分）</p>
+<p>总结：页面大小刚好是2的整数次幂有什么好处？</p>
+<ol>
+<li><p>逻辑地址的拆分更加迅速——如果每个页面的大小为2^kB,用二级制数表示逻辑地址，则<strong>末尾K位</strong>即为<strong>页内偏移量</strong>，其余部分就是<strong>页号</strong>。因此，如果让每个页面的大小为2的整数幂，计算机硬件就可以很方便地得出一个逻辑地址对应的页号和页内偏移量，而无需进行除法运算，从而提升运行速度。</p>
+</li>
+<li><p>物理地址的计算更加迅速——根据逻辑地址得到页号，根据页号查询页表从而找到哦啊页面存放的内存块号，将二进制表示的内存块号和页内偏移量拼接起来，就可以得到最终的物理地址。</p>
+</li>
+</ol>
+<p><img src="技巧.PNG" alt="技巧"></p>
+<p><img src="基本分页存储管理的基本概念.png" alt="基本分页存储管理的基本概念.png"></p>
+<h3 id="基本地址变换机构"><a href="#基本地址变换机构" class="headerlink" title="基本地址变换机构"></a>基本地址变换机构</h3><p><strong>重点理解、记忆基本地址变换机构（用于实现逻辑地址到物理地址转换的一组硬件机构）的原理和流程</strong></p>
+<p>通常会在系统中设置一个<strong>页表寄存器</strong>（PTR），存放<strong>页表在内存中的起始地址F</strong>和<strong>页表长度M</strong>。进程未执行时，页表的始址和页表长度<strong>放在进程控制块（PCB）中</strong>，当进程被调度时，操作系统内核会把他们放到页表寄存器中。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%93%E4%B8%9A%E8%AF%BE/" rel="tag"># 专业课</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/20/GTD/" rel="prev" title="GTD">
+      <i class="fa fa-chevron-left"></i> GTD
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/20/%E8%AF%AD%E6%96%99%E5%BA%93%E6%90%AD%E5%BB%BA/" rel="next" title="语料库搭建">
+      语料库搭建 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存的基础知识"><span class="nav-number">1.</span> <span class="nav-text">内存的基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对装入"><span class="nav-number">1.1.</span> <span class="nav-text">绝对装入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可重定位装入"><span class="nav-number">1.2.</span> <span class="nav-text">可重定位装入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态运行时装入"><span class="nav-number">1.3.</span> <span class="nav-text">动态运行时装入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从写程序到程序运行"><span class="nav-number">1.4.</span> <span class="nav-text">从写程序到程序运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链接的三种方式"><span class="nav-number">1.5.</span> <span class="nav-text">链接的三种方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存管理概念"><span class="nav-number">2.</span> <span class="nav-text">内存管理概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖与交换"><span class="nav-number">3.</span> <span class="nav-text">覆盖与交换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖技术"><span class="nav-number">3.1.</span> <span class="nav-text">覆盖技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交换技术"><span class="nav-number">3.2.</span> <span class="nav-text">交换技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续分配管理方式"><span class="nav-number">4.</span> <span class="nav-text">连续分配管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单一连续分配"><span class="nav-number">4.1.</span> <span class="nav-text">单一连续分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#固定分区分配"><span class="nav-number">4.2.</span> <span class="nav-text">固定分区分配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态分区分配"><span class="nav-number">4.3.</span> <span class="nav-text">动态分区分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分区分配算法"><span class="nav-number">5.</span> <span class="nav-text">动态分区分配算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首次适应算法"><span class="nav-number">5.1.</span> <span class="nav-text">首次适应算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳适应算法"><span class="nav-number">5.2.</span> <span class="nav-text">最佳适应算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最坏适应算法"><span class="nav-number">5.3.</span> <span class="nav-text">最坏适应算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#邻近适应算法"><span class="nav-number">5.4.</span> <span class="nav-text">邻近适应算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回顾"><span class="nav-number">5.5.</span> <span class="nav-text">回顾</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本分页存储管理的基本概念"><span class="nav-number">6.</span> <span class="nav-text">基本分页存储管理的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是分页存储"><span class="nav-number">6.1.</span> <span class="nav-text">什么是分页存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重要的数据结构——页表"><span class="nav-number">6.2.</span> <span class="nav-text">重要的数据结构——页表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何实现地址装换"><span class="nav-number">6.3.</span> <span class="nav-text">如何实现地址装换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本地址变换机构"><span class="nav-number">7.</span> <span class="nav-text">基本地址变换机构</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Suria"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Suria</p>
+  <div class="site-description" itemprop="description">我爱Python</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span id="jinrishici-sentence" style="text-align: center;">正在加载今日诗词....</span>
+        <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Suria</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5de1a83bbc5e103e612e',
+      clientSecret: '4d7f3715680e7acd84d6689d56b30d341e604c3e',
+      repo: 'xyzsuria.github.io',
+      owner: 'xyzsuria',
+      admin: ['xyzsuria'],
+      id: '0b49fcf3ed6a6a9e4ec9ace5b22590dd',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

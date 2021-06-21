@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="安装安装是永远逃不过的首要话题  安装Phantomjs（失败）Phantomjs官网  但是我下载了半天也没反应，既然它是解决浏览器跳出显示的问题，应该也没有什么大的影响。 Phamtomjs在18年停止开发了，技术更新换代，坚守更新自己开发的产品真不容易。  安装aiohttp  因为request库是阻塞式 http请求库，当发送请求后，程序会一直等待服务器响应，直到得到相应后，程序才会进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习爬虫 1">
+<meta property="og:url" content="http://yoursite.com/2020/02/02/%E5%AD%A6%E4%B9%A0%E7%88%AC%E8%99%AB/index.html">
+<meta property="og:site_name" content="Suria_Blog">
+<meta property="og:description" content="安装安装是永远逃不过的首要话题  安装Phantomjs（失败）Phantomjs官网  但是我下载了半天也没反应，既然它是解决浏览器跳出显示的问题，应该也没有什么大的影响。 Phamtomjs在18年停止开发了，技术更新换代，坚守更新自己开发的产品真不容易。  安装aiohttp  因为request库是阻塞式 http请求库，当发送请求后，程序会一直等待服务器响应，直到得到相应后，程序才会进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-02T04:08:09.000Z">
+<meta property="article:modified_time" content="2020-02-10T07:07:40.000Z">
+<meta property="article:author" content="Suria">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/02/%E5%AD%A6%E4%B9%A0%E7%88%AC%E8%99%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>学习爬虫 1 | Suria_Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  
+  <script type="text/javascript" src="/js/love.js"></script>
+  
+  <script type="text/javascript" src="/js/j.js"></script>
+  <script type="text/javascript" src="/js/j.min.js"></script>
+  <script type="text/javascript" src="/js/snow.js"></script>
+
+  <script src="https://g.joyinshare.com/hc/piao.js" type="text/javascript"></script>
+
+<link rel="alternate" href="/atom.xml" title="Suria_Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    
+  <div id="weather-view-he"></div>
+  <script type="text/javascript">
+    WIDGET = {FID: 'Bij5GrHL3p'}
+  </script>
+  <script type="text/javascript" src="https://apip.weatherdt.com/float/static/js/r.js?v=1111"></script>
+  
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Suria_Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">日拱一卒</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/xyzsuria/xyzsuria.github.io" class="github-corner" title="xyzsuria GitHub" aria-label="xyzsuria GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/%E5%AD%A6%E4%B9%A0%E7%88%AC%E8%99%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Suria">
+      <meta itemprop="description" content="我爱Python">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suria_Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习爬虫 1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-02 12:08:09" itemprop="dateCreated datePublished" datetime="2020-02-02T12:08:09+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-10 15:07:40" itemprop="dateModified" datetime="2020-02-10T15:07:40+08:00">2020-02-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">学习爬虫</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>安装是永远逃不过的首要话题</p>
+<ol>
+<li>安装Phantomjs（失败）<br><a href="https://phantomjs.org/download.html" target="_blank" rel="noopener">Phantomjs官网</a></li>
+</ol>
+<p>但是我下载了半天也没反应，既然它是解决浏览器跳出显示的问题，应该也没有什么大的影响。</p>
+<p>Phamtomjs在18年停止开发了，技术更新换代，坚守更新自己开发的产品真不容易。</p>
+<ol>
+<li>安装aiohttp</li>
+</ol>
+<p>因为request库是<strong>阻塞式</strong> http请求库，当发送请求后，程序会一直等待服务器响应，直到得到相应后，程序才会进行下一步处理。</p>
+<p>aiohttp是一个提供异步 Web 服务的库，从Python3.5版本开始，Python中加入async/await关键字。</p>
+<p><code>pip install aiohttp</code></p>
+<p>官方推荐安装两个库，一个是字符编码检测库cchardet，一个是加速DNS的解析库aiodns。</p>
+<p><code>pip install cchardet aiodns</code></p>
+<p>(建议在网速好的地方下载)</p>
+<ol>
+<li>安装解析库</li>
+</ol>
+<ul>
+<li>lxml 是 Python 的解析库， 支持 HTML 和 XML 的解析，支持Xpath的解析方式，而且解析效率高。（具体是啥，我也不太清楚）</li>
+</ul>
+<p><code>pip install lxml</code></p>
+<ul>
+<li>Beautiful Soup 是 Python 的 HTML 或 XML 的解析库，可以用它来方便地从网友中提取数据。</li>
+</ul>
+<p><code>pip install beautifulsoup4</code></p>
+<p>验证使用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(<span class="string">'&lt;p&gt;Hello&lt;/p&gt;'</span>,<span class="string">'lxml'</span>)</span><br><span class="line">print(soup.p.string)</span><br><span class="line"><span class="comment"># Hello</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>pyquery 同样是一个强大的网络解析器（个人比较喜欢用pyquery）</li>
+</ul>
+<p><code>pip install pyquery</code></p>
+<ul>
+<li>在爬虫过程中，会遇到各种各样的验证码，大多数验证码是图形验证码，我们可以使用<strong>OCR</strong>来识别。tesserocr</li>
+</ul>
+<p>OCR (Optical Character Recognition):光学字符识别，是指通过扫描字符，然后通过其形状将其翻译成电子文本的过程。</p>
+<p>tesserocr是Python的一个OCR 识别库，但其实是对tesseract的一层 Python API 封装，在安装tesserocr 之前先安装 <a href="https://digi.bib.uni-mannheim.de/tesseract/" target="_blank" rel="noopener">tesseract</a>。</p>
+<p><code>pip install tesserocr pillow</code></p>
+<ol>
+<li>数据库的安装</li>
+</ol>
+<p>主要安装的有关系型数据库 MySQL 以及非关系型数据库 MongoDB、Redis。</p>
+<p>在网上找教程，进行下载安装。</p>
+<p>Redis是一个机遇内存的高效非关系型数据库。推荐下载Redis Desktop Manager可视化管理工具。</p>
+<p>要想将数据储存到数据库中，仍需要安装操作的库。</p>
+<p><code>pip install pymysql</code></p>
+<p><code>pip install pymongo</code></p>
+<p><code>pip install redis</code></p>
+<p>另外，RedisDump是一个用于Redis数据导入、导出的工具，是基于Ruby实现的。</p>
+<p>所以，先安装Ruby，再安装RedisDump。</p>
+<p>安装Ruby之后，可以执行gem命令。<code>gem install redis-dump</code>。</p>
+<p>安装成功后就可以执行 <code>redis-dump</code> 和 <code>redis-load</code>。</p>
+<ol>
+<li>Web库的安装</li>
+</ol>
+<p>啊，我又见到纠缠了很久的Flask了。</p>
+<ul>
+<li>Flask是一个轻量级的Web服务程序，主要用来做一些API服务。</li>
+</ul>
+<p><code>pip install flask</code></p>
+<ul>
+<li>Tornado是一个支持异步的Web框架，通过使用<strong>非阻塞I/O流</strong>，它可以支持成千上万的开放连接，效率非常高。（作者说的，我目前还不信。）</li>
+</ul>
+<p><a href="https://www.cnblogs.com/songhuasheng/p/10254597.html" target="_blank" rel="noopener">Python+WEB框架之Tornado</a></p>
+<p><code>pip install tornado</code></p>
+<p>验证安装</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.write(<span class="string">"Hello, World"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_app</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> tornado.web.Application([</span><br><span class="line">        (<span class="string">r"/"</span>, MainHandler),</span><br><span class="line">    ])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app = make_app()</span><br><span class="line">    app.listen(<span class="number">8888</span>)</span><br><span class="line">    tornado.ioloop.IOLoop.current().start()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>App爬取相关库的安装</li>
+</ol>
+<p>除了爬 Web 网站，爬虫也可以抓取App的数据，而这些数据一般是通过请求服务器的接口来获取的。由于 App 没有浏览器这种可以比较直观地看到后台请求的工具，所以主要用一些抓包技术来抓取数据。</p>
+<ul>
+<li>Charles 是一个网络抓包工具，相比 Fiddler 功能更为强大，而且跨平台支持更好。</li>
+<li>mitmproxy 是一个支持HTTP和HTTPS的抓包程序，类似Fiddler、Charles的功能，只不过它通过控制台的形式操作。（控制台是个啥？）mitmproxy还有两个关联组件，一个是mitmdump，它是mitmproxy的命令行接口，利用它可以对接Python脚本，实现监听后处理；另一个是mitmweb,它是Web程序，通过它可以清楚地观察到mitmproxy捕获的请求。</li>
+</ul>
+<p>安装 <code>pip install mitmproxy</code>。</p>
+<p>对于 mitmproxy 来说，如果想要截获HTTPS请求，就需要设置证书。mitmproxy在安装后会提供一套CA证书，只要客户端信任了mitmproxy提供的证书，就可以通过它获取HTTPS提供的具体内容。（有需要再去64页看）</p>
+<ul>
+<li>Appium是移动端的自动化测试软件，类似于Selenium,利用它来驱动Android、iOS等设备中完成自动化测试，比如模拟点击、滑动、输入等操作，<a href="http://appium.io/" target="_blank" rel="noopener">官网地址</a>，首先安装Appium，Appium负责驱动移动端来完成一系列操作，他使用UIAutomator和Selendroid来实现驱动。</li>
+</ul>
+<p>可以直接下载Appium Desktop来安装，页可以通过Node.js来安装。<code>npm install -g appium</code></p>
+<ul>
+<li>Android开发环境配置，直接安装Android Studio。(算了，我还是之后用到了再下载吧。太可怕了。有这么多东西需要下载，还不知道会有多少Bugs等着我。)</li>
+</ul>
+<ol>
+<li>爬虫框架的安装</li>
+</ol>
+<ul>
+<li>pyspider是国人编写的强大的网络爬虫框架。它支持JavaScript渲染，这个过程依赖于PhantomJS（仍然要安装）的。</li>
+</ul>
+<p><code>pip install pyspider</code>，如果报错，<code>pip install pycurl-7.43.0-cp36-cp36m-win_amd64.whl</code>。验证完成<code>pyspider all</code>，pyspider的Web服务就会在本地5000端口运行，可以打开<a href="http://localhost:5000/。" target="_blank" rel="noopener">http://localhost:5000/。</a></p>
+<ul>
+<li>Scrapy是一个强大的爬虫框架，依赖的库比较多</li>
+<li>Scrapy-Splash是一个Scrapy中支持JavaScript渲染的工具，这个还得安装docker,我当初跳入这个巨坑，至今仍心有余悸。之后还是找人帮我安装吧。</li>
+</ul>
+<p>还是无法相信，docker会轻轻松松安装好，慎重开始安装。</p>
+<ol>
+<li>还有一些在docker之后安装的，等用到再跳坑吧。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/31/python%E5%87%BD%E6%95%B0/" rel="prev" title="python 方法">
+      <i class="fa fa-chevron-left"></i> python 方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/02/Python%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/" rel="next" title="Python高级编程">
+      Python高级编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Suria"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Suria</p>
+  <div class="site-description" itemprop="description">我爱Python</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span id="jinrishici-sentence" style="text-align: center;">正在加载今日诗词....</span>
+        <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Suria</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      script.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '5de1a83bbc5e103e612e',
+      clientSecret: '4d7f3715680e7acd84d6689d56b30d341e604c3e',
+      repo: 'xyzsuria.github.io',
+      owner: 'xyzsuria',
+      admin: ['xyzsuria'],
+      id: '361ebd4dfb6f92ed4a5208832d6d3872',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Suria_Blog</title>
+  
+  <subtitle>日拱一卒</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-02-23T09:17:28.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Suria</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>boostnote</title>
+    <link href="http://yoursite.com/2021/06/21/boostnote/"/>
+    <id>http://yoursite.com/2021/06/21/boostnote/</id>
+    <published>2021-06-21T04:11:34.254Z</published>
+    <updated>2020-02-23T09:17:28.000Z</updated>
+    
+    <content type="html"><![CDATA[{"folders":[],"version":"1.0"}]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        {&quot;folders&quot;:[],&quot;version&quot;:&quot;1.0&quot;}
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>

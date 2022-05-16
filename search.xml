@@ -202,7 +202,7 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>游戏编程</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -232,7 +232,7 @@
         <category>随笔</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -263,7 +263,7 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>游戏编程</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -466,7 +466,7 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -481,27 +481,7 @@
         <category>随笔</category>
       </categories>
       <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python高级编程</title>
-    <url>/2020/02/02/Python%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h4 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = [<span class="string">'x'</span>,<span class="string">'w'</span>,<span class="string">'j'</span>]</span><br><span class="line"><span class="keyword">for</span> i, element <span class="keyword">in</span> enumerate(s):</span><br><span class="line">    print(i, element)</span><br><span class="line"><span class="comment"># 0 x</span></span><br><span class="line"><span class="comment"># 1 w</span></span><br><span class="line"><span class="comment"># 2 j</span></span><br></pre></td></tr></table></figure>
-<h4 id="迭代器和生成器"><a href="#迭代器和生成器" class="headerlink" title="迭代器和生成器"></a>迭代器和生成器</h4><ul>
-<li>迭代器实现迭代器协议的容器对象</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">i = iter(<span class="string">'abcdefg'</span>)</span><br><span class="line">print(next(i))</span><br><span class="line"><span class="comment"># a</span></span><br></pre></td></tr></table></figure>
-<p>当序列遍历完，会抛出StopIteration异常。</p>
-<ul>
-<li>生成器</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
+        <tag>生活</tag>
       </tags>
   </entry>
   <entry>
@@ -573,7 +553,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Web开发 1</title>
+    <title>Web开发</title>
     <url>/2020/02/02/Web%E5%BC%80%E5%8F%91-1/</url>
     <content><![CDATA[<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><h5 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h5><ul>
 <li><p><code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code>放在<code>&lt;head&gt;&lt;/head&gt;</code>标签中，解决中文乱码</p>
@@ -753,7 +733,7 @@ default 默认加载</li>
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -785,11 +765,11 @@ default 默认加载</li>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
-    <title>Hexo的基本搭建</title>
+    <title>Hexo</title>
     <url>/2021/06/21/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
@@ -824,7 +804,7 @@ default 默认加载</li>
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -990,30 +970,7 @@ default 默认加载</li>
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>专业课</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人编程作业</title>
-    <url>/2020/01/29/try/</url>
-    <content><![CDATA[<h4 id="要求："><a href="#要求：" class="headerlink" title="要求："></a>要求：</h4><ul>
-<li>自己独立完成，并在代码中标注详细的注释，另外需要撰写readme文件,说明思路和流程</li>
-<li>模块化编程</li>
-<li>使用面向对象编程</li>
-<li>使用多线程编程<br>说明：期末提交初稿代码，已经完成的函数模块可执行。全部代码和程序运行结果于课程评分前一周提交个人github代码仓库。</li>
-</ul>
-<h4 id="作业1"><a href="#作业1" class="headerlink" title="作业1"></a>作业1</h4><ol>
-<li>文本特征抽取：参考Coh-Metrix version3.0 indices，编写自己的mini版Coh-Metrix（中文或英文），只需要实现 Descriptive、Lexical Diversity 和Readability 中的指标，每类指标至少选取三个以上指标进行实现。 输出结果可以参考Cohmatrix-Webtool。验证方法，找任意文章作为输入，输出实现的各指标的数值结果。</li>
-</ol>
-<h4 id="作业2"><a href="#作业2" class="headerlink" title="作业2"></a>作业2</h4><ol>
-<li>文本人物、动物关系分析：针对本节课后作业中的语料（中文、英文都需要做），抽取其中的人物、动物名称，并分析人物与人物之间关系的紧密程序，紧密程度为人物和人物（或动物）在一定的上下文里（比如500词）共存的次数。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程练习</category>
-      </categories>
-      <tags>
-        <tag>编程练习</tag>
+        <tag>专业知识</tag>
       </tags>
   </entry>
   <entry>
@@ -1034,7 +991,7 @@ default 默认加载</li>
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1140,10 +1097,10 @@ default 默认加载</li>
 </ol>
 ]]></content>
       <categories>
-        <category>学习爬虫</category>
+        <category>爬虫</category>
       </categories>
       <tags>
-        <tag>爬虫</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1161,7 +1118,7 @@ default 默认加载</li>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>游戏编程</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1190,7 +1147,7 @@ default 默认加载</li>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1604,7 +1561,7 @@ default 默认加载</li>
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1639,7 +1596,7 @@ default 默认加载</li>
         <category>Web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1650,10 +1607,10 @@ default 默认加载</li>
 <h3 id="练习SQL网站"><a href="#练习SQL网站" class="headerlink" title="练习SQL网站"></a>练习SQL网站</h3><p><a href="https://sqlzoo.net/" target="_blank" rel="noopener">SQLZOO</a></p>
 ]]></content>
       <categories>
-        <category>编程练习</category>
+        <category>收藏</category>
       </categories>
       <tags>
-        <tag>编程练习</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -1872,52 +1829,10 @@ default 默认加载</li>
 <h4 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h4><h5 id="JavaScript渲染页面"><a href="#JavaScript渲染页面" class="headerlink" title="JavaScript渲染页面"></a>JavaScript渲染页面</h5><p>但是，现在越来越多的网页采用Ajax、前段模块化工具来构建，信息展示由JavaScript控制，架空HTML，这时候用简单的爬虫操作，什么也抓取不到，超级头大。</p>
 <h5 id="会话和Cookies"><a href="#会话和Cookies" class="headerlink" title="会话和Cookies"></a>会话和Cookies</h5><h3 id="Cookies基本原理"><a href="#Cookies基本原理" class="headerlink" title="Cookies基本原理"></a>Cookies基本原理</h3>]]></content>
       <categories>
-        <category>学习爬虫</category>
+        <category>爬虫</category>
       </categories>
       <tags>
-        <tag>爬虫</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>考研英语</title>
-    <url>/2020/02/10/%E8%80%83%E7%A0%94%E8%8B%B1%E8%AF%AD/</url>
-    <content><![CDATA[<h3 id="考研英语误区"><a href="#考研英语误区" class="headerlink" title="考研英语误区"></a>考研英语误区</h3><p>英语的五大能力：<strong>听、说、读、写、译</strong>。<br>40分阅读<br>25分写作</p>
-<h4 id="词汇误区"><a href="#词汇误区" class="headerlink" title="词汇误区"></a>词汇误区</h4><ul>
-<li>随意单词背诵<br>[图片]</li>
-</ul>
-<ol>
-<li>专有名词</li>
-<li>前后缀</li>
-<li>五千多个单词</li>
-</ol>
-<h4 id="写作误区"><a href="#写作误区" class="headerlink" title="写作误区"></a>写作误区</h4><ul>
-<li>只背不练</li>
-<li>只练不改</li>
-</ul>
-<h3 id="单词’’"><a href="#单词’’" class="headerlink" title="单词’’"></a>单词’’</h3><h4 id="小词大做"><a href="#小词大做" class="headerlink" title="小词大做"></a>小词大做</h4><p>1（词根） 9（后缀）6（前缀）<br>后缀作用，改变词性</p>
-]]></content>
-      <categories>
-        <category>考研计划</category>
-      </categories>
-      <tags>
-        <tag>考研</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>考研复习安排</title>
-    <url>/2020/02/16/%E8%80%83%E7%A0%94%E5%A4%8D%E4%B9%A0%E5%AE%89%E6%8E%92/</url>
-    <content><![CDATA[<h3 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h3><p>张宇老师复习计划建议</p>
-<ol>
-<li><strong>2020 2月-5月</strong> 基础阶段 《张宇考研数学基础30讲》搭配2021爱启航张宇基础班 + 教材 + 复习全书</li>
-<li><strong>2020 5月-9月</strong> 强化阶段 《高数18讲》《现代9讲》《概率9讲》张宇强化班<br>《闭关修炼》</li>
-<li><strong>2020 9月-12月</strong> 模考冲刺阶段 《真题大全解》《命题人终极预测8套卷》《考研数学最后四套卷》</li>
-</ol>
-]]></content>
-      <categories>
-        <category>考研计划</category>
-      </categories>
-      <tags>
-        <tag>考研</tag>
+        <tag>编程</tag>
       </tags>
   </entry>
   <entry>
@@ -2282,279 +2197,7 @@ default 默认加载</li>
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>专业课</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>考研计划安排</title>
-    <url>/2020/02/05/%E8%80%83%E7%A0%94%E8%AE%A1%E5%88%92%E5%AE%89%E6%8E%92/</url>
-    <content><![CDATA[<h4 id="总时间安排"><a href="#总时间安排" class="headerlink" title="总时间安排"></a>总时间安排</h4><h5 id="时间安排"><a href="#时间安排" class="headerlink" title="时间安排"></a>时间安排</h5><ul>
-<li>专业课<br>2/10——<br>数据结构 + 组成原理</li>
-</ul>
-<p>计划看网课，整理知识点，计划3月完成</p>
-<ul>
-<li>数学<br>做题()+知识点总结</li>
-</ul>
-<h4 id="专业课"><a href="#专业课" class="headerlink" title="专业课"></a>专业课</h4><h5 id="408"><a href="#408" class="headerlink" title="408"></a>408</h5><p>这四门专业课之间有一定的内在联系，如果是初学者，必须先学习完<strong>数据结构和组成原理后</strong>再学习<strong>操作系统</strong>，否则有些概念和原理难以理解。</p>
-<p>重点放在<strong>数据结构</strong>和<strong>组成原理</strong>上，尤其数据结构更要多花一些时间；操作系统和计算机网络的很多知识点需要在理解的基础上进行记忆，相对来说容易一些。当然难易程度是相对的，具体情况也要因人而异，灵活安排。</p>
-<h5 id="帖子"><a href="#帖子" class="headerlink" title="帖子"></a>帖子</h5><p><a href="https://www.zhihu.com/question/22823169/answer/517447226gj" target="_blank" rel="noopener">计算机考研408统考该如何准备</a></p>
-<h4 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h4><h5 id="考试内容"><a href="#考试内容" class="headerlink" title="考试内容"></a>考试内容</h5><ul>
-<li>高数、现代、概率（重点是高数）</li>
-</ul>
-<h5 id="数学复习建议"><a href="#数学复习建议" class="headerlink" title="数学复习建议"></a>数学复习建议</h5><ul>
-<li>重复！重复！重复！拿一个小本本，记录每天做错的题目，然后在本周的周日一天专门用来做这些错题，碰到不会做的，看懂答案后，挪到下周日继续做，七天一个重复循环。<strong>重复地做错题。</strong> <strong>坚持做错题，不要因为错题多而放弃！</strong></li>
-<li>总结解题技巧，主要是高数。</li>
-<li>高数 多做题！多做题！多做题！</li>
-<li>线性代数整门课都在讲一个东西：如何解线性代数方程组，怎么去消元(矩阵变换)、怎么表示解(向量)等等，基本上所有的东西都可以用这个逻辑串联起来。（作者说的。）算！算！算！提高计算准确性。</li>
-<li>“概率在很多人看来是玄学，学起来莫名其妙，其特点是概念多，概念间的关联相对较弱，这门课要多背。<strong>把握不同概率模型的区别，知道什么情况套什么模型。</strong></li>
-</ul>
-<h5 id="资料选择"><a href="#资料选择" class="headerlink" title="资料选择"></a>资料选择</h5><ul>
-<li>买市面上知名度最高的，比如李永乐系列。</li>
-</ul>
-<ol>
-<li>数学：高数教材（同济版）、线性代数（同济版）、概率（陈希儒版）。买最新版本！</li>
-<li>李永乐复习全书</li>
-</ol>
-<h5 id="复习安排"><a href="#复习安排" class="headerlink" title="复习安排"></a>复习安排</h5><ul>
-<li>数学的复习战线要长，四轮复习，每天抽1到2小时做做题，保持记忆和手感。</li>
-<li>3,4,5全科扫盲，啃教材，做复习全书例题，两个月给高数，一个月给线代和概率。每天保证<strong>8小时</strong>g给数学。</li>
-<li>习题轮，6,7，8月，做复习全书的习题，错题全部往错题本上记。碰到不明白的知识点再回头看教材。<strong>周日做之前错题</strong>。保证半天给数学。</li>
-<li>查漏补缺，9、10月完成，再一轮快速地扫完正本复习全书的习题。<strong>半天给数学。</strong></li>
-<li>备考轮，11、12月做模拟卷和真题，调整心态。</li>
-</ul>
-<h4 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h4><h5 id="考试内容-1"><a href="#考试内容-1" class="headerlink" title="考试内容"></a>考试内容</h5><ul>
-<li>单词+长难句+作文模板 = 60~70分</li>
-</ul>
-<h5 id="复习建议"><a href="#复习建议" class="headerlink" title="复习建议"></a>复习建议</h5><ul>
-<li>完形填空不同花大量时间去复习，20*0.5。</li>
-<li>阅读分支超高，4篇<em>5题 </em>2分 = 40分，难度较大。争取拿到30分。</li>
-<li>把碰到不懂的长难句记到笔记本上，经常回顾复习。</li>
-<li>写作背模板。</li>
-</ul>
-<h5 id="资料选择-1"><a href="#资料选择-1" class="headerlink" title="资料选择"></a>资料选择</h5><ul>
-<li>单词，先背真题生词，再背单词数（新东方绿皮乱序）</li>
-<li>长难句，何凯文《长难句解密》</li>
-</ul>
-<h5 id="复习安排-1"><a href="#复习安排-1" class="headerlink" title="复习安排"></a>复习安排</h5><ul>
-<li>每天雷打不动早中晚半小时背单词</li>
-<li>6,7两月学长难句</li>
-<li>8,9,10,11月做完型、阅读理解，将长难句融会贯通</li>
-<li>12月做真题，背模板。</li>
-<li>和数学一样，每周安排一天来做错题，分析之前没有看懂的长难句。<h4 id="政治"><a href="#政治" class="headerlink" title="政治"></a>政治</h4></li>
-</ul>
-<h5 id="考试内容-2"><a href="#考试内容-2" class="headerlink" title="考试内容"></a>考试内容</h5><p>单选16题<em>1 + 多选17题 </em>2 + 大题5题 * 10 = 100</p>
-<h5 id="复习建议-1"><a href="#复习建议-1" class="headerlink" title="复习建议"></a>复习建议</h5><ul>
-<li>多选题是扣分重灾区，得分率很低。大题和单选是得分的好地方。</li>
-<li>大题的时候千万不要写的超出答题范围。采用“总-分-总”结构答题。</li>
-</ul>
-<h5 id="参考书"><a href="#参考书" class="headerlink" title="参考书"></a>参考书</h5><ul>
-<li>肖秀荣全家桶，命题人知识点精讲精练+命题人讲真题+1000题+8套卷</li>
-</ul>
-<h5 id="复习安排-2"><a href="#复习安排-2" class="headerlink" title="复习安排"></a>复习安排</h5><p>10月以后每天抽一两小时出来复习政治，把参考资料啃下来。</p>
-]]></content>
-      <categories>
-        <category>考研计划</category>
-      </categories>
-      <tags>
-        <tag>考研</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机考研</title>
-    <url>/2020/02/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%80%83%E7%A0%94/</url>
-    <content><![CDATA[<h3 id="启发"><a href="#启发" class="headerlink" title="启发"></a>启发</h3><p>今天聊起自己想考计算机专业，一心想考心仪大学的计算机研究生，但是内心坚信自己根本考不上。当你面对两个选择的时候，选择更难走的那条路，显然我有这个想法，但是内心已经认定这条难走的路根本就是一条死路。</p>
-<p>既然这样，我为什么不能把这条路看的更加透彻呢，做更多的准备，而不是坚定自己模糊的印象。</p>
-<p>所以，我开始搜集各种各样的信息，当然很多学校都是超级难考的，先搜集，再选择。</p>
-<h3 id="北航考研-961"><a href="#北航考研-961" class="headerlink" title="北航考研(961)"></a>北航考研(961)</h3><p><a href="http://scse.buaa.edu.cn/info/1102/5423.htm" target="_blank" rel="noopener">2020年硕士研究生入学考试专业课考研大纲</a><br>(这考试内容，我除了计算机网络能看懂一点要考什么，其他的甚至都不知道要考什么。)</p>
-<p><a href="https://blog.csdn.net/fengxinlinux/article/details/88953994" target="_blank" rel="noopener">考研贴</a></p>
-<h4 id="考试组成"><a href="#考试组成" class="headerlink" title="考试组成"></a>考试组成</h4><p>961计算机基础综合共包括三门课程的内容：<strong>计算机组成原理、操作系统、计算机网络技术</strong>，分别占60分，50分、40分。所有课程均不指定参考书。</p>
-<p>408 <strong>操作系统，计算机网络，数据结构，计算机组成。</strong></p>
-<p>这两门重合的有</p>
-<h4 id="计算机组成原理部分的考试大纲（60分）"><a href="#计算机组成原理部分的考试大纲（60分）" class="headerlink" title="计算机组成原理部分的考试大纲（60分）"></a>计算机组成原理部分的考试大纲（60分）</h4><h5 id="整体要求"><a href="#整体要求" class="headerlink" title="整体要求"></a>整体要求</h5><p>(一).理解单处理器计算机系统中各部件的内部工作原理、组成结构以及相互连接方式，具有完整的计算机系统的整机概念；</p>
-<p>(二).理解计算机系统层次化结构概念，掌握以MIPS为代表的RISC指令集体系结构的基本知识，能对MIPS汇编程序设计语言的相关问题进行分析；</p>
-<p>(三).理解计算机存储系统的层次化结构，掌握层次化存储系统的设计、分析和性能计算；</p>
-<p>(四).能根据指令语义进行单周期、多周期或流水线MIPS处理器的数据通路及其控制器的分析和简单设计；</p>
-<p>(五).理解并掌握输入输出系统的基本知识。</p>
-<h5 id="知识要点"><a href="#知识要点" class="headerlink" title="知识要点"></a>知识要点</h5><p>(一)、计算机系统概述</p>
-<p>（1）计算机系统的基本组成与层次结构</p>
-<p>（2）计算机系统的性能指标：吞吐量、响应时间、带宽、延迟；CPU时钟周期、主频、CPI、CPU执行时间；MIPS、MFLOPS、GFLOPS、TFLOPS、PFLOPS。</p>
-<p>(二)、数据的表示和运算</p>
-<p>（1）数制与编码</p>
-<p>（2）定点数和浮点数的表示和运算</p>
-<p>（3）算术逻辑单元ALU</p>
-<p>l串行加法器和并行加法器</p>
-<p>l算术逻辑单元ALU的功能和结构</p>
-<p>(三)、存储器层次结构</p>
-<p>（1）存储器的层次化结构</p>
-<p>（2）主存储器与CPU的连接</p>
-<p>（3）高速缓冲存储器(Cache)</p>
-<p>lCache的基本工作原理</p>
-<p>lCach和主存之间的映射方式</p>
-<p>lCache中主存块的替换算法与写策略</p>
-<p>l多层次Cache性能计算</p>
-<p>（4）虚拟存储器</p>
-<p>l虚拟存储器的基本概念</p>
-<p>l页式虚拟存储器</p>
-<p>lTLB(快表)</p>
-<p>(四)、MIPS指令系统及汇编语言</p>
-<p>（1）指令系统的基本知识（指令格式、寻址方式）</p>
-<p>（2）MIPS汇编语言</p>
-<p>(五)、MIPS处理器</p>
-<p>（1）CPU的功能和基本结构</p>
-<p>（2）单周期、多周期MIPS处理器数据通路的功能和基本结构</p>
-<p>（3）硬布线控制器的功能和工作原理</p>
-<p>l单周期处理器控制器</p>
-<p>l多周期处理器控制器</p>
-<p>（4）指令流水线</p>
-<p>l指令流水线的基本概念</p>
-<p>l流水线冒险及处理策略</p>
-<p>l指令流水线的基本实现</p>
-<p>（六）、总线与输入输出(I/O)系统</p>
-<p>（1）总线的基本概念</p>
-<p>（2）磁盘存储器</p>
-<p>（3）I/O控制器</p>
-<p>lI/O控制器的功能和基本结构</p>
-<p>l存储映射I/O编址</p>
-<p>（4）基本I/O方式</p>
-<p>l程序查询方式</p>
-<p>l程序中断方式：中断的基本概念，中断响应过程，中断处理过程，多重中断和中断屏蔽的概念；</p>
-<p>lDMA方式，DMA控制器组成，DMA传送过程，设备传输性能计算。</p>
-<h5 id="操作系统部分的考试大纲（50分）"><a href="#操作系统部分的考试大纲（50分）" class="headerlink" title="操作系统部分的考试大纲（50分）"></a>操作系统部分的考试大纲（50分）</h5><p>（一）可参考书目</p>
-<p>1.操作系统实用教程（第三版），任爱华，清华大学出版社。</p>
-<p>2.现代操作系统(Modern Operating System) (The 3rd Edition),陈向群,马洪兵等译,Andrew S. Tanenbaum著,机械工业出版社。</p>
-<p>（二）复习内容</p>
-<p>1.操作系统概述</p>
-<p>a)操作系统的基本概念；内核态与用户态、中断、异常和系统调用。</p>
-<p>2.进程管理</p>
-<p>a)进程、线程的基本概念以及两者的区别；</p>
-<p>b)进程控制块、进程的状态与转换；</p>
-<p>c)进程同步的基本概念；实现临界区互斥的基本方法；信号量机制及P、V操作；了解经典同步问题，并通过信号量机制解决进程同步问题。</p>
-<p>d)进程间通信，包括共享存储系统、消息传递系统、管道。</p>
-<p>e)进程调度的基本准则；典型调度算法：先来先服务调度算法、短作业(短进程、短线程)优先调度算法、时间片轮转调度算法、优先级调度算法。</p>
-<p>f)死锁的形成原因与必要条件；死锁预防、死锁避免、死锁检测和解除。</p>
-<p>3.内存管理</p>
-<p>a)程序装入与链接；逻辑地址与物理地址空间；重定位；内存保护。</p>
-<p>b)分区管理；交换与覆盖技术；</p>
-<p>c)分页管理方式；分段管理方式；段页式管理方式。</p>
-<p>d)虚拟内存基本概念和局部性原理；缺页中断；地址变换过程；</p>
-<p>e)页面置换算法：最佳置换算法(OPT)、先进先出置换算法(FIFO)、最近最少使用置换算法(LRU)、时钟置换算法(CLOCK)；工作集模型。</p>
-<p>4.设备管理</p>
-<p>a) I/O控制方式：程序控制、中断、DMA、通道；缓冲技术；假脱机技术(SPOOLing)。</p>
-<p>5.文件系统</p>
-<p>a)文件与文件系统的基本概念；组织方式；文件控制块；目录结构；文件存取控制；文件系统层次结构。</p>
-<p>b）磁盘的结构；磁盘调度算法；廉价冗余磁盘阵列。</p>
-<h5 id="计算机网络部分的考试大纲（40分）"><a href="#计算机网络部分的考试大纲（40分）" class="headerlink" title="计算机网络部分的考试大纲（40分）"></a>计算机网络部分的考试大纲（40分）</h5><p>（一）可参考书目</p>
-<p>1、《计算机网络》(第7版)，谢希仁编著，电子工业出版社，2017</p>
-<p>2、《计算机网络》(第5版)，Andrew S. Tanenbaum，严伟，潘爱民译，清华大学出版社，2012</p>
-<p>（二）复习内容</p>
-<p>1、计算机网络概述</p>
-<p>(1)计算机网络定义与分类</p>
-<p>(2)计算机网络体系结构</p>
-<p>(3)网络标准化工作及相关组织</p>
-<p>2、物理层</p>
-<p>(1)物理层的基本概念</p>
-<p>(2)数据通信的基础知识</p>
-<p>(3)传输介质及其特性</p>
-<p>(4)信道复用技术</p>
-<p>(5)数字传输系统</p>
-<p>(6)宽带接入技术</p>
-<p>3、数据链路层</p>
-<p>(1)数据链路层功能和设计要点</p>
-<p>(2)错误检测和纠正</p>
-<p>(3)基本数据链路协议，包括：停止-等待协议、后退N帧协议和选择重传协议；</p>
-<p>(4)滑动窗口协议</p>
-<p>(5)点对点协议PPP</p>
-<p>(6)介质访问控制协议，包括介质访问控制基本概念、协议分类、CSMA/CD协议；</p>
-<p>(7)以太网，包括IEEE局域网标准、以太网、高速以太网技术；</p>
-<p>(8)局域网互连技术，包括物理层及数据链路层互连技术、网桥概念和工作原理、局域网交换机工作原理；</p>
-<p>(9) 无线局域网(IEEE802.11)基本知识，包括CSMA/CA协议原理等。</p>
-<p>4、网络层</p>
-<p>(1)网络层提供的两种服务</p>
-<p>(2) IP协议</p>
-<p>(3)划分子网和构造超网</p>
-<p>(4) ICMP协议</p>
-<p>(5)路由算法及协议，包括路由算法分类、距离向量路由算法及RIP协议、链路状态路由算法及OSPF协议、BGP基本原理；</p>
-<p>(6) IP组播基本原理、特点及用途</p>
-<p>(7)网络地址转换NAT原理</p>
-<p>(8) IPv6基本知识，包括：IPv6特点、地址、包结构等</p>
-<p>5、传输层</p>
-<p>(1)传输层功能及提供的服务</p>
-<p>(2) UDP协议</p>
-<p>(3) TCP协议，包括：报文段格式、可靠传输、流量控制、拥塞控制和连接管理。</p>
-<p>6、应用层</p>
-<p>(1)套接字编程接口</p>
-<p>(2)域名系统DNS</p>
-<p>(3)文件传送协议</p>
-<p>(4)万维网WWW原理</p>
-<p>(5)电子邮件系统构成与协议</p>
-<h3 id="CSP考试"><a href="#CSP考试" class="headerlink" title="CSP考试"></a>CSP考试</h3><p>发现北航计算机机考淘汰不留情面，但是如果考了CSP可以免机试。</p>
-<h4 id="报名"><a href="#报名" class="headerlink" title="报名"></a>报名</h4><p>2020年三次CCF CSP认证的时间安排为：3月15日，9月20日，12月13日。<br>非计算机协会会员300元/次，会员180元/次（学生会员需缴纳50元/年的会费），相当于一年可以打三次折。</p>
-<h4 id="考试基本信息"><a href="#考试基本信息" class="headerlink" title="考试基本信息"></a>考试基本信息</h4><p>第一题：一般是数值方面的问题（一群整数）基本一个for循环可以解决的了，比较简单，学过C语言基本可以得分。推荐哈工大苏小红的C语言程序设计，这本书相对来说比较高阶，会有涉及到链表操作，这对学习数据结构很有帮助。</p>
-<p>第二题：一般是接近的复杂度，最少得需要两个For循环，要说两个For循环也不难，难就难在一般是时序题、通常要排序，而且要用到多元数据。比如18年3月的第二题碰撞的小球，</p>
-<p>数轴上有一条长度为L（L为偶数)的线段，左端点在原点，右端点在坐标L处。有n个不计体积的小球在线段上，开始时所有的小球都处在偶数坐标上，速度方向向右，速度大小为1单位长度每秒。<br>当小球到达线段的端点（左端点或右端点）的时候，会立即向相反的方向移动，速度大小仍然为原来大小。<br>当两个小球撞到一起的时候，两个小球会分别向与自己原来移动的方向相反的方向，以原来的速度大小继续移动。<br>现在，告诉你线段的长度L，小球数量n，以及n个小球的初始位置，请你计算t秒之后，各个小球的位置。</p>
-<p>其中会涉及到长度、个数、时间、速度等不同单位的数据。</p>
-<p>第三题：一般会是字符串的处理，而且一般是对复杂文本的处理，这里最好使用C++里边的String类做字符串处理，如果要自己用c语言写字符串处理函数，不仅不一定写对，而且还会相当麻烦，浪费时间。</p>
-<p>第四题：一般会用到高等数据结构，比如树、图，而且需要用到的算法也不是课本上学到的简单算法，得用更高级一点的时间、空间效率更高一点的算法。</p>
-<p>第五题：一般是纯粹的算法题。但是算法难度一般是ACM级别的，所以经过ACM训练的训练员也不一定能拿满分。<br>[原文链接]<a href="https://blog.csdn.net/u013495762/article/details/82870455" target="_blank" rel="noopener">https://blog.csdn.net/u013495762/article/details/82870455</a></p>
-<p><a href="https://csp.ccf.org.cn/csp/index.action" target="_blank" rel="noopener">CSP认证管理系统（报名入口）</a></p>
-<h4 id="考前准备"><a href="#考前准备" class="headerlink" title="考前准备"></a>考前准备</h4><h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><h5 id="训练题："><a href="#训练题：" class="headerlink" title="训练题："></a>训练题：</h5><ol>
-<li><a href="https://www.nowcoder.com/ta/acm-solutions" target="_blank" rel="noopener">ACM题库</a></li>
-<li><a href="http://118.190.20.162/home.page" target="_blank" rel="noopener">CCF-CSP真题</a>，总结每年题型。</li>
-<li><a href="https://blog.csdn.net/wu_xin1/article/details/100370518" target="_blank" rel="noopener">CCF-CSP刷题网站推荐</a></li>
-</ol>
-<h5 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h5><p>CCF—CSP考试是可以带书进去的 </p>
-<ol>
-<li>如果对语法掌握不熟练的话可以带一本编程语言书。</li>
-<li>最好带一本C++ STL方面的书（是STL工具书，STL怎么使用的书，而不是STL源码分析类的书）STL方面的书可以帮助我们又快有准的写出想要的排序等代码，如果我们当场写的话会很浪费时间。</li>
-<li>算法书，有资源的可以找一本ACM培训竞赛书，前面也说过书上的算法对付考试是不行的。需要更好的算法。<h5 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h5></li>
-</ol>
-<ul>
-<li>每天写程序，不能手生，最少得2h，适应4h的考试时间。</li>
-<li><p>技巧篇：说明——CCF-CSP是机器阅卷评分，题目规定有代码运行用时，超时的测试用例是没有分的。给分目前最小单位是10分，按照对你的代码的一个测试，比如从10到100这个规模来20%测试用例，100-1000来30%测试用例，1000-10000来50%测试用例，通过一个测试用例给10分，也就是说（1）我们自己测试对的在评分的时候不一定能拿满分；（2）我们在3、4、5题上也可以通过实现简单数据集上的代码而得分，而不是一分得不了，<strong>3、4、5题我们可以从最小规模开始，可以排除特殊情况来写代码，只要简单的测试用例能通过我们就能得分。</strong></p>
-</li>
-<li><p>首先不能再出基础性错误，输出严格保证更例子一样。</p>
-</li>
-<li><p>着重锻炼测试样例的能力，提交上去当时没有成绩。</p>
-</li>
-<li><p>锻炼单步调试能力。</p>
-</li>
-</ul>
-<h3 id="考研408"><a href="#考研408" class="headerlink" title="考研408"></a>考研408</h3><p><img src="408.jpg" alt="408"></p>
-<p>408四门专业课所占比例<br><img src="408_1.jpg" alt="408分值分布"></p>
-<h4 id="科目考察"><a href="#科目考察" class="headerlink" title="科目考察"></a>科目考察</h4><ol>
-<li>数据结构的考试内容有哪些？重点和难点怎么把握？（难度★★★★）</li>
-</ol>
-<p>数据结构的考试内容包括：线性表、栈、队列和数组、树和二叉树、图、查找和内部排序。首先要深刻理解数据结构的三要素：逻辑结构、存储结构以及在其上定义的各种基本操作，</p>
-<ol>
-<li>计算机组成原理的考试内容有哪些？如何复习?（难度★★★★★）</li>
-</ol>
-<p>计算机组成原理的考试内容包括：计算机系统概述、数据的表示和运算、存储器层次结构、指令系统、中央处理器、总线、输入/输出系统。</p>
-<p>重点掌握单处理机计算机系统中各个部件的组成结构和基本工作原理。</p>
-<ol>
-<li>计算机操作系统的考试内容有哪些？重点和难点是什么？（难度★★★）</li>
-</ol>
-<p>计算机操作系统的考试内容主要包括：操作系统概述、进程管理、内存管理、文件管理和输入/输出管理。重点放在掌握基本概念和基本原理上，包括一些常用的算法。难点主要是运用操作系统的基本原理来分析和解决具体问题。</p>
-<ol>
-<li>计算机网络的考试内容有哪些？如何复习?（难度★★★）</li>
-</ol>
-<p>计算机网络的考试内容主要围绕TCP/IP协议层次的具体展开，包括以下内</p>
-<p>容：物理层、数据链路层、网络层、传输层、应用层。复习时要注意按照层进行知识点的复习和总结。</p>
-<p>这四门专业课之间有一定的内在联系，如果是初学者，必须先学习完数据结构和组成原理后再学习操作系统，否则有些概念和原理难以理解。</p>
-<p>重点放在数据结构和组成原理上，尤其数据结构更要多花一些时间；操作系统和计算机网络的很多知识点需要在理解的基础上进行记忆，相对来说容易一些。当然难易程度是相对的，具体情况也要因人而异，灵活安排。</p>
-<ol>
-<li>专业课什么时候开始复习比较好？</li>
-</ol>
-<p>一般而言，专业基础比较好的考生，在3-8月更多关注英语、数学、政治这三门课程，等到9月才开始复习专业课。如果基础并不怎么好，建议7月就开始复习，不然到时候没办法合理分配时间。对于应届生来说，尤其是跨专业的应届生，一定要尽早准备，越早越好。</p>
-<ol>
-<li>408到底应该考多少分？</li>
-</ol>
-<p>这个要看学校，并不是所有学校都要求看很高的分数。由于408题目比较难，因此你的理想分数可以定到100分以上，当然大牛就冲击120以上吧，每年408专业课能考120以上的全国屈指可数。</p>
-]]></content>
-      <categories>
-        <category>考研计划</category>
-      </categories>
-      <tags>
-        <tag>考研</tag>
+        <tag>专业知识</tag>
       </tags>
   </entry>
   <entry>
@@ -2566,31 +2209,6 @@ default 默认加载</li>
 <li><a href="https://www.fmprc.gov.cn/web/" target="_blank" rel="noopener">https://www.fmprc.gov.cn/web/</a></li>
 <li><a href="http://www.kekenet.com/Article/media/economist/" target="_blank" rel="noopener">http://www.kekenet.com/Article/media/economist/</a></li>
 </ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>网站代号</th>
-<th>名称</th>
-<th>简要介绍</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-</tr>
-<tr>
-<td>2</td>
-</tr>
-<tr>
-<td>3</td>
-</tr>
-<tr>
-<td>4</td>
-</tr>
-</tbody>
-</table>
-</div>
 <h4 id="爬取内容"><a href="#爬取内容" class="headerlink" title="爬取内容"></a>爬取内容</h4><h4 id="双语书目："><a href="#双语书目：" class="headerlink" title="双语书目："></a>双语书目：</h4><p>涉及到已经出版的书本中英文的对照，英译中，中译英版本：</p>
 <ol>
 <li>英译中书籍：哈利波特</li>
@@ -2606,7 +2224,39 @@ default 默认加载</li>
 </ul>
 </li>
 </ul>
-<p>总结：<br>|数据库名称|优点|<br>|—-|—-|<br>|PostgreSQL, MySQL, Oracle|数据库：存储数据，以便自己或其他应用程序之后能再次找到|<br>|Redis, Memcached|缓存：记住开销昂贵操作的结果，加快读取速度|<br>|ElasticSearch|搜索索引：允许用户按照关键字搜索数据，或以各种方式对数据进行过滤|<br>|Kafka, Flink, Storm|流处理：向其他进程发送消息，进行异步处理<br>|Hadoop|批处理：定期处理累积的大批量数据|</p>
+<p>总结：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据库名称</th>
+<th>优点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL, MySQL, Oracle</td>
+<td>数据库：存储数据，以便自己或其他应用程序之后能再次找到</td>
+</tr>
+<tr>
+<td>Redis, Memcached</td>
+<td>缓存：记住开销昂贵操作的结果，加快读取速度</td>
+</tr>
+<tr>
+<td>ElasticSearch</td>
+<td>搜索索引：允许用户按照关键字搜索数据，或以各种方式对数据进行过滤</td>
+</tr>
+<tr>
+<td>Kafka, Flink, Storm</td>
+<td>流处理：向其他进程发送消息，进行异步处理</td>
+</tr>
+<tr>
+<td>Hadoop</td>
+<td>批处理：定期处理累积的大批量数据</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h5 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h5><div class="table-container">
 <table>
 <thead>
@@ -2857,10 +2507,25 @@ default 默认加载</li>
 </ol>
 ]]></content>
       <categories>
-        <category>项目</category>
+        <category>项目实践</category>
       </categories>
       <tags>
-        <tag>Python</tag>
+        <tag>编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2022 开篇</title>
+    <url>/2022/05/16/2022-%E5%BC%80%E7%AF%87/</url>
+    <content><![CDATA[<p>没想到，这个网站是我 20 年的时候建立的，我还是真的特别喜欢折腾，一如既往。</p>
+<p>我是一个 Markdown 重度使用患者，本来想着用 Notion 来做笔记，但是Notion 适合于规整很多笔记，但是每篇笔记的结构并不清晰，这点 Typore 做的很好，但是它每篇笔记又很难规整，真是难办。</p>
+<p>我查资料的时候看到别人的博客，这样一想我干脆也用博客写算了。</p>
+<p>我得记一下基本的 hexo 操作。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>生活</tag>
       </tags>
   </entry>
 </search>
